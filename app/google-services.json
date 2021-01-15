@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "884071478006",
+    "firebase_url": "https://findwithbenefit.firebaseio.com",
+    "project_id": "findwithbenefit",
+    "storage_bucket": "findwithbenefit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884071478006:android:1dfe2ff75308636a7b32d7",
+        "android_client_info": {
+          "package_name": "com.example.findwithbenefit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884071478006-e9o0mav2ghm1nfb0tmm22mevc91sab1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1kPyII07fprXfuZQ6eDXrm0QVWyFkAN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884071478006-e9o0mav2ghm1nfb0tmm22mevc91sab1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,16 @@
         android:roundIcon="@drawable/ic_action_name2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckInActivity"></activity>
+        <activity
+            android:name=".AddTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddMenuActivity"
+            android:exported="false" />
+        <activity android:name=".CheckInActivity" />
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".MainActivity" />
@@ -26,8 +35,10 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,11 +41,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddTableActivity extends AppCompatActivity {
     private Button AddTable;
-    private EditText tableName, tableStatus;
+    private EditText tableName;
 
     private DatabaseReference RootRef;
 
     private Toolbar AddTableToolbar;
+
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +68,26 @@ public class AddTableActivity extends AppCompatActivity {
             }
         });
 
+        radioGroup = findViewById(R.id.radioGroup);
+
+
         RetrieveUserInfo();
 
 
+    }
+    public void checkButton(View view){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+
+        radioButton = findViewById(radioId);
+
+        Toast.makeText(this, "Status set to: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
 
     private void InitializeFields() {
         AddTable = (Button) findViewById(R.id.add_table_button);
         tableName = (EditText) findViewById(R.id.set_table_name);
-        tableStatus = (EditText) findViewById(R.id.set_table_status);
+        //tableStatus = (EditText) findViewById(R.id.set_table_status);
         AddTableToolbar = (Toolbar) findViewById(R.id.add_table_toolbar);
         setSupportActionBar(AddTableToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -88,9 +104,10 @@ public class AddTableActivity extends AppCompatActivity {
 
 
     private void UpdateSetting() {
-
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
         String setTableName = tableName.getText().toString();
-        String setTableStatus = tableStatus.getText().toString();
+        String setTableStatus = radioButton.getText().toString();
 
         if (TextUtils.isEmpty(setTableName)){
             Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
@@ -131,7 +148,7 @@ public class AddTableActivity extends AppCompatActivity {
                             String retrieveStatus = snapshot.child("status").getValue().toString();
 
                             tableName.setText(retrieveUserName);
-                            tableStatus.setText(retrieveStatus);
+                            //tableStatus.setText(retrieveStatus);
                         }
                         else {
                             tableName.setVisibility(View.VISIBLE);

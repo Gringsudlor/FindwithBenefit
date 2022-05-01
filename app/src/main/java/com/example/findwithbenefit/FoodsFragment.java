@@ -43,7 +43,7 @@ public class FoodsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FoodsView = inflater.inflate(R.layout.fragment_contacts, container, false);
+        FoodsView = inflater.inflate(R.layout.fragment_foods, container, false);
 
         myFoodsList = (RecyclerView) FoodsView.findViewById(R.id.contacts_list);
         myFoodsList.setLayoutManager(new LinearLayoutManager(getContext()));

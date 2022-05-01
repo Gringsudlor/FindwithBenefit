@@ -82,15 +82,25 @@ public class AddMenuActivity extends AppCompatActivity {
 
         RetrieveUserInfo();
 
+
+
         foodImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1, 1)
-                        .start(AddMenuActivity.this);
+                if (TextUtils.isEmpty(foodName.getText().toString())){
+                    Toast.makeText(AddMenuActivity.this, "Please enter food name", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setAspectRatio(1, 1)
+                            .start(AddMenuActivity.this);
+                }
+
             }
         });
+
+
 
     }
 

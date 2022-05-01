@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
         getMenuInflater().inflate(R.menu.option_menu, menu);
 
         return true;
@@ -172,7 +171,23 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_find_friends_option){
             SendUserToFindFriendsActivity();
         }
+        if (item.getItemId() == R.id.main_add_menu_option){
+            SendUserToAddMenuActivity();
+        }
+        if (item.getItemId() == R.id.main_add_table_option){
+            SendUserToAddTableActivity();
+        }
         return true;
+    }
+
+    private void SendUserToAddTableActivity() {
+        Intent addMenuIntent = new Intent(MainActivity.this, AddTableActivity.class);
+        startActivity(addMenuIntent);
+    }
+
+    private void SendUserToAddMenuActivity() {
+        Intent addMenuIntent = new Intent(MainActivity.this, AddMenuActivity.class);
+        startActivity(addMenuIntent);
     }
 
     private void SendUserToCheckActivity() {

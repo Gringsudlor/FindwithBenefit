@@ -25,4 +25,20 @@
         >
     </item>
 
+    <item
+        android:title="Add Menu"
+        android:id="@+id/main_add_menu_option"
+        app:showAsAction="never"
+        android:visible="true"
+        >
+    </item>
+
+    <item
+        android:title="Add Table"
+        android:id="@+id/main_add_table_option"
+        app:showAsAction="never"
+        android:visible="true"
+        >
+    </item>
+
 </menu>

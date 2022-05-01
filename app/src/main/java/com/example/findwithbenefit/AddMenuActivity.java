@@ -134,7 +134,7 @@ public class AddMenuActivity extends AppCompatActivity {
                 loadingBar.show();
 
                 final Uri resultUri = result.getUri();
-                StorageReference filePath = FoodImageRef.child(foodName.getText() + ".jpg");
+                StorageReference filePath = FoodImageRef.child(foodName.getText().toString() + ".jpg");
 
                 filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -173,7 +173,7 @@ public class AddMenuActivity extends AppCompatActivity {
     private void UpdateSetting() {
 
         String setFoodName = foodName.getText().toString();
-        String setFoodCost = foodCost.getText().toString();
+        String setFoodCost = foodCost.getText().toString() + " .-";
 
         if (TextUtils.isEmpty(setFoodName)){
             Toast.makeText(this, "Please enter your user name", Toast.LENGTH_SHORT).show();
@@ -186,14 +186,14 @@ public class AddMenuActivity extends AppCompatActivity {
             //profileMap.put("uid", currentUserID);
             profileMap.put("name", setFoodName);
             profileMap.put("cost", setFoodCost);
-            profileMap.put("image",photoUrl);
+            //profileMap.put("image",photoUrl);
             RootRef.child("Foods").child(setFoodName).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 SendUserToMainActivity();
-                                Toast.makeText(AddMenuActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddMenuActivity.this, "Food Updated", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 String message = task.getException().toString();
@@ -273,7 +273,7 @@ public class AddMenuActivity extends AppCompatActivity {
                         }
                         else {
                             foodName.setVisibility(View.VISIBLE);
-                            Toast.makeText(AddMenuActivity.this, "Please set and update your food information", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddMenuActivity.this, "Please set and update your food information", Toast.LENGTH_SHORT).show();
                         }
                     }
 

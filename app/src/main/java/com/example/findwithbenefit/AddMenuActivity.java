@@ -37,7 +37,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddMenuActivity extends AppCompatActivity {
-    private Button UpdateFood;
+    private Button UpdateFood, DeleteFood;
     private EditText foodName, foodCost;
     private ImageView foodImage;
 
@@ -73,6 +73,13 @@ public class AddMenuActivity extends AppCompatActivity {
             }
         });
 
+        DeleteFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Delete();
+            }
+        });
+
         RetrieveUserInfo();
 
         foodImage.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +99,7 @@ public class AddMenuActivity extends AppCompatActivity {
 
     private void InitializeFields() {
         UpdateFood = (Button) findViewById(R.id.update_food_button);
+        DeleteFood = (Button) findViewById(R.id.delete_food_button);
         foodName = (EditText) findViewById(R.id.set_food_name);
         foodCost = (EditText) findViewById(R.id.set_food_cost);
         foodImage = (ImageView) findViewById(R.id.set_food_image);
@@ -100,7 +108,7 @@ public class AddMenuActivity extends AppCompatActivity {
         setSupportActionBar(AddFoodToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setTitle("Add Food");
+        getSupportActionBar().setTitle("Edit Food");
     }
 
     @Override
@@ -187,6 +195,49 @@ public class AddMenuActivity extends AppCompatActivity {
 
     }
 
+    private void Delete() {
+        String setFoodName = foodName.getText().toString();
+
+        if (TextUtils.isEmpty(setFoodName)){
+            Toast.makeText(this, "Please enter your food name", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+
+            HashMap<String, Object> profileMap = new HashMap<>();
+            profileMap.put("name", setFoodName);
+            RootRef.child("Foods").child(setFoodName).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        snapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            RootRef.child("Foods").child(setFoodName).updateChildren(profileMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                SendUserToMainActivity();
+                                //Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                String message = task.getException().toString();
+                                Toast.makeText(AddMenuActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
+
+    }
+
     private void RetrieveUserInfo() {
 
         RootRef.child("Foods").child(foodName.getText().toString())
@@ -212,7 +263,7 @@ public class AddMenuActivity extends AppCompatActivity {
                         }
                         else {
                             foodName.setVisibility(View.VISIBLE);
-                            Toast.makeText(AddMenuActivity.this, "Please set and update your profile information", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddMenuActivity.this, "Please set and update your food information", Toast.LENGTH_SHORT).show();
                         }
                     }
 

@@ -107,7 +107,6 @@ public class AddTableActivity extends AppCompatActivity {
 
     private void Delete() {
         String setTableName = tableName.getText().toString();
-        String setTableStatus;
 
         if (TextUtils.isEmpty(setTableName)){
             Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
@@ -168,7 +167,7 @@ public class AddTableActivity extends AppCompatActivity {
         setSupportActionBar(AddTableToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setTitle("Add Table");
+        getSupportActionBar().setTitle("Edit Table");
     }
 
     @Override

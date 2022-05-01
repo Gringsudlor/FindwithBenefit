@@ -213,7 +213,7 @@ public class AddMenuActivity extends AppCompatActivity {
         }
 
         else {
-
+            StorageReference filePath = FoodImageRef.child(setFoodName + ".jpg");
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("name", setFoodName);
             RootRef.child("Foods").child(setFoodName).addValueEventListener(new ValueEventListener() {
@@ -221,6 +221,7 @@ public class AddMenuActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         snapshot.getRef().removeValue();
+                        filePath.delete();
                     }
                 }
 

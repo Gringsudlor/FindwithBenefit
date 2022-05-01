@@ -155,7 +155,7 @@ public class AddTableActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 SendUserToMainActivity();
-                                Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 String message = task.getException().toString();

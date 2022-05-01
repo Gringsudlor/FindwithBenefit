@@ -47,7 +47,7 @@ public class BookingActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private String currentUserID, currentUserName, receivedTable;
+    private String currentUserID, currentUserName, receivedTable, Current_State;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,8 @@ public class BookingActivity extends AppCompatActivity {
         TableRef = FirebaseDatabase.getInstance().getReference().child("Booking");
         currentUserNameRef = UsersRef.child(currentUserID);
         receivedTable = getIntent().getExtras().get("visit_table").toString();
+        Current_State = "new";
+
 
         currentUserNameRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,14 +83,6 @@ public class BookingActivity extends AppCompatActivity {
 
         tableName.setVisibility(View.VISIBLE);
 
-        bookTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UpdateSetting();
-            }
-        });
-
-
 
         RetrieveTableInfo();
 
@@ -100,11 +94,14 @@ public class BookingActivity extends AppCompatActivity {
         TableRef.child(receivedTable).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if((snapshot.exists())){
+                if(snapshot.exists()){
                     String setTableName = snapshot.child("name").getValue().toString();
                     String setTableStatus = snapshot.child("status").getValue().toString();
 
                     tableName.setText(setTableName);
+                    ManageTableBooking();
+                    //userProfileStatus.setText(setTableStatus);
+
                 }
 
             }
@@ -133,6 +130,43 @@ public class BookingActivity extends AppCompatActivity {
 
     }
 
+    private void ManageTableBooking() {
+        TableRef.child(receivedTable).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String setTableName = snapshot.child("name").getValue().toString();
+                String setTableStatus = snapshot.child("status").getValue().toString();
+
+                if(!setTableStatus.equals("Available")){
+                    Current_State = "booked";
+                    bookTable.setText("Booked");
+                    Toast.makeText(BookingActivity.this, "Booked", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        bookTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Current_State.equals("new")) {
+                    UpdateSetting();
+                    Toast.makeText(BookingActivity.this, "Reserved Successfully", Toast.LENGTH_SHORT).show();
+                }
+                if (Current_State.equals("booked")) {
+                    Toast.makeText(BookingActivity.this, "Booked", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
+    }
 
 
     private void UpdateSetting() {
@@ -140,10 +174,10 @@ public class BookingActivity extends AppCompatActivity {
         String setTableStatus = "Reserved by " + currentUserName;
 
         if (TextUtils.isEmpty(setTableName)){
-            Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
         }
         if (TextUtils.isEmpty(setTableStatus)){
-            Toast.makeText(this, "Please enter your status", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Please enter your status", Toast.LENGTH_SHORT).show();
         }
         else {
 
@@ -156,11 +190,12 @@ public class BookingActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 SendUserToMainActivity();
-                                Toast.makeText(BookingActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(BookingActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+
                             }
                             else{
                                 String message = task.getException().toString();
-                                Toast.makeText(BookingActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(BookingActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -168,32 +203,6 @@ public class BookingActivity extends AppCompatActivity {
 
     }
 
-    private void RetrieveUserInfo() {
-
-        RootRef.child("Booking").child(tableName.getText().toString())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if ((snapshot.exists()) && (snapshot.hasChild("name"))){
-                            String retrieveUserName = snapshot.child("name").getValue().toString();
-                            String retrieveStatus = snapshot.child("status").getValue().toString();
-
-                            tableName.setText(retrieveUserName);
-                            //tableStatus.setText(retrieveStatus);
-                        }
-                        else {
-                            tableName.setVisibility(View.VISIBLE);
-                            Toast.makeText(BookingActivity.this, "Please set and update table information", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-    }
 
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(BookingActivity.this, MainActivity.class);

@@ -23,6 +23,7 @@
         android:layout_marginTop="250dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/inputs"
+        android:textSize="25dp"
         android:drawableStart="@drawable/tableicon"
         android:hint="Table name"
         android:inputType="textMultiLine"

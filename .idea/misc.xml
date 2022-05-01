@@ -3,6 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_add_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_add_table.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_chat.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_check_in.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_find_friends.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_login.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_main.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_profile.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_register.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_setting.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/activity_table.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/app_bar_layout.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/barscreen.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/custom_messages_layout.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/food_display_layout.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_booking.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_chats.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_contacts.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_drink.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_drinks.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_food.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_foods.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_profile.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/fragment_requests.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/table_display_layout.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/layout/users_display_layout.xml" value="0.21240942028985507" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Admin/Documents/AndroidStudioProjects/FindwithBenefit/app/src/main/res/menu/option_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_add_menu.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_add_table.xml" value="0.4041666666666667" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_booking.xml" value="0.264" />

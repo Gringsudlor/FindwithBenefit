@@ -1,0 +1,254 @@
+@startuml
+
+title __FINDWITHBENEFIT.APP's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.AddMenuActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.AddTableActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.Booking {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.BookingActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.BookingFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.BuildConfig {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.ChatActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.ChatsFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.CheckInActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.Contacts {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.ContactsFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.DrinkFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.FindFriendsActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.Foods {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.FoodsFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.LoginActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.MainActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.MessageAdapter {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.Messages {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.ProfileActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.RegisterActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.RequestsFragment {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.SettingActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.SplashActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.TableActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.TabsAccessorAdapter {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.proj2 {
+      class com.example.proj2.splashTime {
+      }
+    }
+  }
+  
+
+  com.example.findwithbenefit.AddMenuActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.AddTableActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.BookingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.BookingFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.ChatActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.ChatActivity o-- com.example.findwithbenefit.MessageAdapter : messageAdapter
+  com.example.findwithbenefit.ChatsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.CheckInActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.ContactsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.DrinkFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.FindFriendsActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.FoodsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.MainActivity o-- com.example.findwithbenefit.TabsAccessorAdapter : myTabsAccessorAdapter
+  com.example.findwithbenefit.MessageAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.findwithbenefit.ProfileActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.RequestsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.SettingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.SplashActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.TableActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.TabsAccessorAdapter -up-|> androidx.fragment.app.FragmentPagerAdapter
+  com.example.proj2.splashTime -up-|> android.app.Application
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

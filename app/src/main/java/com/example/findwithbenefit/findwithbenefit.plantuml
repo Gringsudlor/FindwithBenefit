@@ -1,0 +1,580 @@
+@startuml
+
+title __FINDWITHBENEFIT's Class Diagram__\n
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.AddMenuActivity {
+          - AddFoodToolbar : Toolbar
+          - DeleteFood : Button
+          - FoodImageRef : StorageReference
+          {static} - GalleryPick : int
+          - RootRef : DatabaseReference
+          - UpdateFood : Button
+          - currentUserID : String
+          - foodCost : EditText
+          - foodImage : ImageView
+          - foodName : EditText
+          - loadingBar : ProgressDialog
+          - mAuth : FirebaseAuth
+          - photoUrl : String
+          # onActivityResult()
+          # onCreate()
+          - Delete()
+          - InitializeFields()
+          - RetrieveUserInfo()
+          - SendUserToMainActivity()
+          - UpdateSetting()
+      }
+    }
+  
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.AddTableActivity {
+          - AddTable : Button
+          - AddTableToolbar : Toolbar
+          - DelTable : Button
+          - RootRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - currentUserName : String
+          - currentUserNameRef : DatabaseReference
+          - mAuth : FirebaseAuth
+          - radioButton : RadioButton
+          - radioGroup : RadioGroup
+          - tableName : EditText
+          + checkButton()
+          # onActivityResult()
+          # onCreate()
+          - Delete()
+          - InitializeFields()
+          - RetrieveUserInfo()
+          - SendUserToMainActivity()
+          - UpdateSetting()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.Booking {
+          + name : String
+          + status : String
+          + Booking()
+          + Booking()
+          + getName()
+          + getStatus()
+          + setName()
+          + setStatus()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.BookingActivity {
+          - Current_State : String
+          - RootRef : DatabaseReference
+          - TableRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - bookTable : Button
+          - currentUserID : String
+          - currentUserName : String
+          - currentUserNameRef : DatabaseReference
+          - mAuth : FirebaseAuth
+          - receivedTable : String
+          - tableName : TextView
+          # onActivityResult()
+          # onCreate()
+          - InitializeFields()
+          - ManageTableBooking()
+          - RetrieveTableInfo()
+          - SendUserToMainActivity()
+          - UpdateSetting()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.BookingFragment {
+          - BookingRef : DatabaseReference
+          - BookingView : View
+          - recyclerView : RecyclerView
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.BookingFragment.BookingViewHolder {
+          ~ tableLayout : ConstraintLayout
+          ~ tableName : TextView
+          ~ tableStatus : TextView
+          + BookingViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ChatActivity {
+          - ChatToolBar : Toolbar
+          - MessageInputText : EditText
+          - RootRef : DatabaseReference
+          - SendFilesButton : ImageButton
+          - SendMessageButton : ImageButton
+          - linearLayoutManager : LinearLayoutManager
+          - mAuth : FirebaseAuth
+          - messageReceiverID : String
+          - messageReceiverImage : String
+          - messageReceiverName : String
+          - messageSenderID : String
+          - messagesList : List<Messages>
+          - saveCurrentDate : String
+          - saveCurrentTime : String
+          - userImage : CircleImageView
+          - userLastSeen : TextView
+          - userMessagesList : RecyclerView
+          - userName : TextView
+          # onCreate()
+          # onStart()
+          - DisplayLastSeen()
+          - InitializeControllers()
+          - SendMessage()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ChatsFragment {
+          - ChatsRef : DatabaseReference
+          - PrivateChatsView : View
+          - UsersRef : DatabaseReference
+          - chatsList : RecyclerView
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          + ChatsFragment()
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ChatsFragment.ChatsViewHolder {
+          ~ onlineIcon : ImageView
+          ~ profileImage : CircleImageView
+          ~ userName : TextView
+          ~ userStatus : TextView
+          + ChatsViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.CheckInActivity {
+          # onCreate()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.Contacts {
+          + image : String
+          + name : String
+          + status : String
+          + Contacts()
+          + Contacts()
+          + getImage()
+          + getName()
+          + getStatus()
+          + setImage()
+          + setName()
+          + setStatus()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ContactsFragment {
+          - ContactsRef : DatabaseReference
+          - ContactsView : View
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          - myContactsList : RecyclerView
+          + ContactsFragment()
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ContactsFragment.ContactsViewHolder {
+          ~ onlineIcon : ImageView
+          ~ profileImage : CircleImageView
+          ~ userName : TextView
+          ~ userStatus : TextView
+          + ContactsViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.DrinkFragment {
+          - DrinksView : View
+          - FoodsRef : DatabaseReference
+          - recyclerView : RecyclerView
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.DrinkFragment.FoodsViewHolder {
+          ~ foodCost : TextView
+          ~ foodImage : ImageView
+          ~ foodName : TextView
+          + FoodsViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.FindFriendsActivity {
+          - FindFriendsRecyclerList : RecyclerView
+          - UsersRef : DatabaseReference
+          - mToolbar : Toolbar
+          # onCreate()
+          # onStart()
+      }
+    }
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder {
+          ~ profileImage : CircleImageView
+          ~ userName : TextView
+          ~ userStatus : TextView
+          + FindFriendViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.Foods {
+          + cost : String
+          + image : String
+          + name : String
+          + Foods()
+          + Foods()
+          + getCost()
+          + getImage()
+          + getName()
+          + setCost()
+          + setImage()
+          + setName()
+      }
+    }
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.FoodsFragment {
+          - FoodsRef : DatabaseReference
+          - FoodsView : View
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          - myFoodsList : RecyclerView
+          + FoodsFragment()
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.FoodsFragment.FoodsViewHolder {
+          ~ foodCost : TextView
+          ~ foodImage : CircleImageView
+          ~ foodName : TextView
+          + FoodsViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.LoginActivity {
+          - ForgetPasswordLink : TextView
+          - LoginButton : Button
+          - NeedNewAccountLink : TextView
+          - PhoneLoginButton : Button
+          - UserEmail : EditText
+          - UserPassword : EditText
+          - UsersRef : DatabaseReference
+          - loadingBar : ProgressDialog
+          - mAuth : FirebaseAuth
+          # onCreate()
+          - AllowUserToLogin()
+          - InitializeFields()
+          - SendUserToMainActivity()
+          - SendUserToRegisterActivity()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.MainActivity {
+          - RootRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          - mToolbar : Toolbar
+          - myTabLayout : TabLayout
+          - myViewPager : ViewPager
+          - option : Menu
+          - tabIcons : int[]
+          + onCreateOptionsMenu()
+          + onOptionsItemSelected()
+          + onPrepareOptionsMenu()
+          # onCreate()
+          # onDestroy()
+          # onStart()
+          # onStop()
+          - SendUserToAddMenuActivity()
+          - SendUserToAddTableActivity()
+          - SendUserToCheckActivity()
+          - SendUserToFindFriendsActivity()
+          - SendUserToLoginActivity()
+          - SendUserToSettingsActivity()
+          - VerifyUserExistance()
+          - setupTabIcons()
+          - updateUserStatus()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.MessageAdapter {
+          - UsersRef : DatabaseReference
+          - mAuth : FirebaseAuth
+          - userMessagesList : List<Messages>
+          + MessageAdapter()
+          + getItemCount()
+          + onBindViewHolder()
+          + onCreateViewHolder()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.MessageAdapter.MessageViewHolder {
+          + receiverMessageText : TextView
+          + receiverProfileImage : CircleImageView
+          + senderMessageText : TextView
+          + MessageViewHolder()
+      }
+    }
+
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.Messages {
+          - from : String
+          - message : String
+          - type : String
+          + Messages()
+          + getFrom()
+          + getMessage()
+          + getType()
+          + setFrom()
+          + setMessage()
+          + setType()
+          - Messages()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.ProfileActivity {
+          - ChatRequestRef : DatabaseReference
+          - ContactsRef : DatabaseReference
+          - Current_State : String
+          - DeclineMessageRequestButton : Button
+          - NotificationRef : DatabaseReference
+          - SendMessageRequestButton : Button
+          - UserRef : DatabaseReference
+          - mAuth : FirebaseAuth
+          - receiverUserID : String
+          - senderUserID : String
+          - userProfileImage : CircleImageView
+          - userProfileName : TextView
+          - userProfileStatus : TextView
+          # onCreate()
+          - AcceptChatRequest()
+          - CancelChatRequest()
+          - ManageChatRequests()
+          - RemoveSpecificContact()
+          - RetrieveUserInfo()
+          - SendChatRequest()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.RegisterActivity {
+          - AlreadyHaveAccountLink : TextView
+          - CreateAccountButton : Button
+          - RootRef : DatabaseReference
+          - UserEmail : EditText
+          - UserPassword : EditText
+          - loadingBar : ProgressDialog
+          - mAuth : FirebaseAuth
+          # onCreate()
+          - CreateNewAccount()
+          - InitializeFields()
+          - SendUserToLoginActivity()
+          - SendUserToMainActivity()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.RequestsFragment {
+          - AcceptBtn : Button
+          - CancelBtn : Button
+          - ChatRequestsRef : DatabaseReference
+          - ContactsRef : DatabaseReference
+          - RequestsFragmentView : View
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          - myRequestsList : RecyclerView
+          + RequestsFragment()
+          + onCreateView()
+          + onStart()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.RequestsFragment.RequestsViewHolder {
+          ~ AcceptButton : Button
+          ~ CancelButton : Button
+          ~ profileImage : CircleImageView
+          ~ userName : TextView
+          ~ userStatus : TextView
+          + RequestsViewHolder()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.SettingActivity {
+          {static} - GalleryPick : int
+          - RootRef : DatabaseReference
+          - SettingsToolbar : Toolbar
+          - UpdateAccountSetting : Button
+          - UserProfileImageRef : StorageReference
+          - currentUserID : String
+          - loadingBar : ProgressDialog
+          - mAuth : FirebaseAuth
+          - photoUrl : String
+          - userName : EditText
+          - userProfileImage : CircleImageView
+          - userStatus : EditText
+          # onActivityResult()
+          # onCreate()
+          - InitializeFields()
+          - RetrieveUserInfo()
+          - SendUserToMainActivity()
+          - UpdateSetting()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.SplashActivity {
+          # onCreate()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.TableActivity {
+          # onCreate()
+      }
+    }
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.TabsAccessorAdapter {
+          + TabsAccessorAdapter()
+          + getCount()
+          + getItem()
+          + getPageTitle()
+      }
+    }
+
+
+    namespace com.example.proj2 {
+      class com.example.proj2.splashTime {
+          + onCreate()
+      }
+    }
+  
+
+  com.example.findwithbenefit.AddMenuActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.AddTableActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.BookingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.BookingFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.BookingFragment +-down- com.example.findwithbenefit.BookingFragment.BookingViewHolder
+  com.example.findwithbenefit.BookingFragment.BookingViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.ChatActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.ChatActivity o-- com.example.findwithbenefit.MessageAdapter : messageAdapter
+  com.example.findwithbenefit.ChatsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.ChatsFragment +-down- com.example.findwithbenefit.ChatsFragment.ChatsViewHolder
+  com.example.findwithbenefit.ChatsFragment.ChatsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.CheckInActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.ContactsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.ContactsFragment +-down- com.example.findwithbenefit.ContactsFragment.ContactsViewHolder
+  com.example.findwithbenefit.ContactsFragment.ContactsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.DrinkFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.DrinkFragment +-down- com.example.findwithbenefit.DrinkFragment.FoodsViewHolder
+  com.example.findwithbenefit.DrinkFragment.FoodsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.FindFriendsActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.FindFriendsActivity +-down- com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder
+  com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.FoodsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.FoodsFragment +-down- com.example.findwithbenefit.FoodsFragment.FoodsViewHolder
+  com.example.findwithbenefit.FoodsFragment.FoodsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.MainActivity o-- com.example.findwithbenefit.TabsAccessorAdapter : myTabsAccessorAdapter
+  com.example.findwithbenefit.MessageAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.findwithbenefit.MessageAdapter +-down- com.example.findwithbenefit.MessageAdapter.MessageViewHolder
+  com.example.findwithbenefit.MessageAdapter.MessageViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.ProfileActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.RequestsFragment -up-|> androidx.fragment.app.Fragment
+  com.example.findwithbenefit.RequestsFragment +-down- com.example.findwithbenefit.RequestsFragment.RequestsViewHolder
+  com.example.findwithbenefit.RequestsFragment.RequestsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.SettingActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.SplashActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.TableActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.TabsAccessorAdapter -up-|> androidx.fragment.app.FragmentPagerAdapter
+  com.example.proj2.splashTime -up-|> android.app.Application
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

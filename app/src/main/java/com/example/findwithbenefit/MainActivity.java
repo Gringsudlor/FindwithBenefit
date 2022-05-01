@@ -184,6 +184,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem food = menu.findItem(R.id.main_add_menu_option);
+        MenuItem table = menu.findItem(R.id.main_add_table_option);
+        if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
+        {
+            food.setVisible(false);
+            table.setVisible(false);
+        }
+        else
+        {
+            food.setVisible(true);
+            table.setVisible(true);
+        }
+        return true;
+    }
+
     private void SendUserToAddTableActivity() {
         Intent addMenuIntent = new Intent(MainActivity.this, AddTableActivity.class);
         startActivity(addMenuIntent);

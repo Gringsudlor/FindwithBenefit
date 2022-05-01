@@ -28,7 +28,7 @@
     </item>
 
     <item
-        android:title="Add Menu"
+        android:title="Edit Menu"
         android:id="@+id/main_add_menu_option"
         app:showAsAction="never"
         android:visible="true"
@@ -36,7 +36,7 @@
     </item>
 
     <item
-        android:title="Add Table"
+        android:title="Edit Table"
         android:id="@+id/main_add_table_option"
         app:showAsAction="never"
         android:visible="true"

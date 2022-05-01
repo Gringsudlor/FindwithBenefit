@@ -40,7 +40,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddTableActivity extends AppCompatActivity {
-    private Button AddTable;
+    private Button AddTable, DelTable;
     private EditText tableName;
 
     private DatabaseReference RootRef, UsersRef, currentUserNameRef;
@@ -90,6 +90,13 @@ public class AddTableActivity extends AppCompatActivity {
             }
         });
 
+        DelTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Delete();
+            }
+        });
+
         radioGroup = findViewById(R.id.radioGroup);
 
 
@@ -97,6 +104,51 @@ public class AddTableActivity extends AppCompatActivity {
 
 
     }
+
+    private void Delete() {
+        String setTableName = tableName.getText().toString();
+        String setTableStatus;
+
+        if (TextUtils.isEmpty(setTableName)){
+            Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+
+            HashMap<String, Object> profileMap = new HashMap<>();
+            profileMap.put("name", setTableName);
+            RootRef.child("Booking").child(setTableName).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        snapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            RootRef.child("Booking").child(setTableName).updateChildren(profileMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                SendUserToMainActivity();
+                                //Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                String message = task.getException().toString();
+                                Toast.makeText(AddTableActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
+
+    }
+
     public void checkButton(View view){
         int radioId = radioGroup.getCheckedRadioButtonId();
 
@@ -109,6 +161,7 @@ public class AddTableActivity extends AppCompatActivity {
 
     private void InitializeFields() {
         AddTable = (Button) findViewById(R.id.add_table_button);
+        DelTable = (Button) findViewById(R.id.del_table_button);
         tableName = (EditText) findViewById(R.id.set_table_name);
         //tableStatus = (EditText) findViewById(R.id.set_table_status);
         AddTableToolbar = (Toolbar) findViewById(R.id.add_table_toolbar);

@@ -39,29 +39,27 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AddTableActivity extends AppCompatActivity {
-    private Button AddTable;
-    private EditText tableName;
+public class BookingActivity extends AppCompatActivity {
+    private Button bookTable;
+    private TextView tableName;
 
-    private DatabaseReference RootRef, UsersRef, currentUserNameRef;
+    private DatabaseReference RootRef, UsersRef, currentUserNameRef, TableRef;
 
-    private Toolbar AddTableToolbar;
-
-    private RadioGroup radioGroup;
-    private RadioButton radioButton;
 
     private FirebaseAuth mAuth;
-    private String currentUserID, currentUserName;
+    private String currentUserID, currentUserName, receivedTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_table);
+        setContentView(R.layout.activity_booking);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        TableRef = FirebaseDatabase.getInstance().getReference().child("Booking");
         currentUserNameRef = UsersRef.child(currentUserID);
+        receivedTable = getIntent().getExtras().get("visit_table").toString();
 
         currentUserNameRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,39 +81,50 @@ public class AddTableActivity extends AppCompatActivity {
 
         tableName.setVisibility(View.VISIBLE);
 
-        AddTable.setOnClickListener(new View.OnClickListener() {
+        bookTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UpdateSetting();
             }
         });
 
-        radioGroup = findViewById(R.id.radioGroup);
 
 
-        RetrieveUserInfo();
+        RetrieveTableInfo();
 
 
     }
-    public void checkButton(View view){
-        int radioId = radioGroup.getCheckedRadioButtonId();
 
-        radioButton = findViewById(radioId);
+    private void RetrieveTableInfo() {
 
-        Toast.makeText(this, "Status set to: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+        TableRef.child(receivedTable).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((snapshot.exists())){
+                    String setTableName = snapshot.child("name").getValue().toString();
+                    String setTableStatus = snapshot.child("status").getValue().toString();
+
+                    tableName.setText(setTableName);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
 
     private void InitializeFields() {
-        AddTable = (Button) findViewById(R.id.add_table_button);
-        tableName = (EditText) findViewById(R.id.set_table_name);
+        bookTable = (Button) findViewById(R.id.book_button);
+        tableName = (TextView) findViewById(R.id.table_name_text);
         //tableStatus = (EditText) findViewById(R.id.set_table_status);
-        AddTableToolbar = (Toolbar) findViewById(R.id.add_table_toolbar);
-        setSupportActionBar(AddTableToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setTitle("Add Table");
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayShowCustomEnabled(true);
+        //getSupportActionBar().setTitle("Add Table");
     }
 
     @Override
@@ -127,16 +136,8 @@ public class AddTableActivity extends AppCompatActivity {
 
 
     private void UpdateSetting() {
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
         String setTableName = tableName.getText().toString();
-        String setTableStatus;
-        if (radioId == 2131361883){
-            setTableStatus = radioButton.getText().toString();
-        }
-        else{
-            setTableStatus = radioButton.getText() + " by " + currentUserName;
-        }
+        String setTableStatus = "Reserved by " + currentUserName;
 
         if (TextUtils.isEmpty(setTableName)){
             Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
@@ -155,11 +156,11 @@ public class AddTableActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 SendUserToMainActivity();
-                                Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BookingActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 String message = task.getException().toString();
-                                Toast.makeText(AddTableActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BookingActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -182,7 +183,7 @@ public class AddTableActivity extends AppCompatActivity {
                         }
                         else {
                             tableName.setVisibility(View.VISIBLE);
-                            Toast.makeText(AddTableActivity.this, "Please set and update table information", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookingActivity.this, "Please set and update table information", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -195,7 +196,7 @@ public class AddTableActivity extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(AddTableActivity.this, MainActivity.class);
+        Intent mainIntent = new Intent(BookingActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

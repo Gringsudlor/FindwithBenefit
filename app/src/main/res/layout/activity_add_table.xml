@@ -23,7 +23,7 @@
         android:layout_marginTop="250dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/inputs"
-        android:drawableStart="@drawable/edit_profile"
+        android:textSize="25dp"
         android:hint="Table name"
         android:inputType="textMultiLine"
         android:padding="6dp"

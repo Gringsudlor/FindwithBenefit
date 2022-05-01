@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,6 +92,16 @@ public class BookingFragment extends Fragment{
 
                     }
                 });
+                holder.tableLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String visit_table = getRef(position).getKey();
+
+                        Intent intent = new Intent(getActivity(), BookingActivity.class);
+                        intent.putExtra("visit_table", visit_table);
+                        startActivity(intent);
+                    }
+                });
 
             }
 
@@ -111,6 +122,7 @@ public class BookingFragment extends Fragment{
     public static class BookingViewHolder extends RecyclerView.ViewHolder{
 
         TextView tableName, tableStatus;
+        ConstraintLayout tableLayout;
         //ImageView foodImage;
 
         public BookingViewHolder(@NonNull View itemView) {
@@ -118,6 +130,7 @@ public class BookingFragment extends Fragment{
 
             tableName = itemView.findViewById(R.id.myText1);
             tableStatus = itemView.findViewById(R.id.myText2);
+            tableLayout = itemView.findViewById(R.id.tableLayout);
             //foodImage = itemView.findViewById(R.id.myImageView);
         }
     }

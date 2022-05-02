@@ -114,7 +114,6 @@
         UserEmail = (EditText) findViewById(R.id.login_email);
         UserPassword = (EditText) findViewById(R.id.login_password);
         NeedNewAccountLink = (TextView) findViewById(R.id.need_new_account_link);
-        ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);
         loadingBar = new ProgressDialog(this);
 
     }

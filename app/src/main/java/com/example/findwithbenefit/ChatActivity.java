@@ -233,7 +233,7 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){
-                        Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(ChatActivity.this, "ERROR: ", Toast.LENGTH_SHORT).show();

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -40,8 +41,10 @@ public class DrinkFragment extends Fragment{
     private View DrinksView;
     private RecyclerView recyclerView;
 
-    private DatabaseReference FoodsRef;
+    private DatabaseReference FoodsRef, UsersRef;
 
+    private FirebaseAuth mAuth;
+    private String currentUserID;
 
     @Nullable
     @Override
@@ -53,7 +56,11 @@ public class DrinkFragment extends Fragment{
         recyclerView = (RecyclerView) DrinksView.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
+
         FoodsRef = FirebaseDatabase.getInstance().getReference().child("Foods");
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         return DrinksView;
     }
@@ -109,11 +116,28 @@ public class DrinkFragment extends Fragment{
                 holder.foodLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String visit_food = getRef(position).getKey();
+                        UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String checker = snapshot.child("Table").getValue().toString();
+                                if (checker == "Checking out"){
+                                    Toast.makeText(getActivity(), "Please Check in Table before order foods...", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    String visit_food = getRef(position).getKey();
 
-                        Intent intent = new Intent(getActivity(), FoodsActivity.class);
-                        intent.putExtra("visit_food", visit_food);
-                        startActivity(intent);
+                                    Intent intent = new Intent(getActivity(), FoodsActivity.class);
+                                    intent.putExtra("visit_food", visit_food);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
                 });
 

@@ -106,6 +106,7 @@ public class FoodsFragment extends Fragment {
                 holder.foodLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         String visit_food = getRef(position).getKey();
 
                         Intent intent = new Intent(getActivity(), FoodsActivity.class);

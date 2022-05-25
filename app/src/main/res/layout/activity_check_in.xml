@@ -14,13 +14,13 @@
     </include>
 
     <ImageView
-        android:id="@+id/set_food_image"
+        android:id="@+id/check_in_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:src="@drawable/foodicon"
+        android:src="@drawable/checkin"
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="5dp" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/table_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_food_image"
+        android:layout_below="@+id/check_in_image"
         android:layout_marginStart="15dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="15dp"

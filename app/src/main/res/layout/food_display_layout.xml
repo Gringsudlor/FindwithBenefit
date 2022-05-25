@@ -28,6 +28,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/myText1" />
 
             <TextView
+                android:id="@+id/myText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" .-"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/myText2"
+                app:layout_constraintTop_toBottomOf="@+id/myText1" />
+
+            <TextView
                 android:id="@+id/myText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

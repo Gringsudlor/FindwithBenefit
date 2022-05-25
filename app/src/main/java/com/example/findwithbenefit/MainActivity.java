@@ -104,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
             VerifyUserExistance();
         }
+
+        if (RootRef.child("Users").child(currentUserID).child("orders") == null){
+            RootRef.child("Users").child(currentUserID).child("orders");
+        }
+
     }
 
     @Override
@@ -175,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_find_friends_option){
             SendUserToFindFriendsActivity();
         }
+        if (item.getItemId() == R.id.main_checkIn_option){
+            SendUserToCheckInActivity();
+        }
         if (item.getItemId() == R.id.main_add_menu_option){
             SendUserToAddMenuActivity();
         }
@@ -184,8 +192,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     public boolean onPrepareOptionsMenu(Menu menu)
     {
+        MenuItem checkIn = menu.findItem(R.id.main_checkIn_option);
         MenuItem food = menu.findItem(R.id.main_add_menu_option);
         MenuItem table = menu.findItem(R.id.main_add_table_option);
         if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
@@ -197,8 +208,13 @@ public class MainActivity extends AppCompatActivity {
         {
             food.setVisible(true);
             table.setVisible(true);
+            checkIn.setVisible(false);
         }
         return true;
+    }
+    private void SendUserToCheckInActivity() {
+        Intent checkInIntent = new Intent(MainActivity.this, CheckInActivity.class);
+        startActivity(checkInIntent);
     }
 
     private void SendUserToAddTableActivity() {
@@ -210,12 +226,6 @@ public class MainActivity extends AppCompatActivity {
         Intent addMenuIntent = new Intent(MainActivity.this, AddMenuActivity.class);
         startActivity(addMenuIntent);
     }
-
-    private void SendUserToCheckActivity() {
-        Intent checkIntent = new Intent(MainActivity.this, CheckInActivity.class);
-        startActivity(checkIntent);
-    }
-
 
     private void SendUserToLoginActivity() {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);

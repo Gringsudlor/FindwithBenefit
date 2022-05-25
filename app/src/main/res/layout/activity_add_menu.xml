@@ -56,11 +56,20 @@
         android:textAlignment="center"
         android:textStyle="bold" />
 
+    <Spinner
+        android:id="@+id/food_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_food_cost"
+        android:layout_margin="16dp"
+        >
+    </Spinner>
+
     <Button
         android:id="@+id/update_food_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_food_cost"
+        android:layout_below="@+id/food_dropdown"
         android:inputType="textMultiLine"
         android:text="Edit"
         android:textAlignment="center"

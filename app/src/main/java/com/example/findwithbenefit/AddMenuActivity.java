@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,9 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,7 +48,7 @@ public class AddMenuActivity extends AppCompatActivity {
 
     private String currentUserID;
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef, FoodRef;
     private String photoUrl;
 
     private static final int GalleryPick = 1;
@@ -51,6 +56,12 @@ public class AddMenuActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
 
     private Toolbar AddFoodToolbar;
+
+    private String cost;
+
+    private List<String> items;
+
+    private ArrayAdapter<String> adapterItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +71,11 @@ public class AddMenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+        FoodRef = RootRef.child("Foods");
         FoodImageRef = FirebaseStorage.getInstance().getReference().child("Food Images");
+
+        Spinner foodSpinner = (Spinner) findViewById(R.id.food_dropdown);
+        items = new ArrayList<>();
 
         InitializeFields();
 
@@ -81,6 +96,56 @@ public class AddMenuActivity extends AppCompatActivity {
         });
 
         RetrieveUserInfo();
+
+
+
+        foodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = foodSpinner.getSelectedItem().toString();
+                FoodRef.child(item).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        cost = snapshot.child("name").getValue().toString();
+                        //cost = snapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                //String cost = FoodRef.child(item).c;
+                foodName.setText(item);
+                //foodCost.setText(cost);
+                Toast.makeText(AddMenuActivity.this, item, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        FoodRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    String key = ds.getKey();
+                    items.add(key);
+                    adapterItems = new ArrayAdapter<String>(AddMenuActivity.this,android.R.layout.simple_spinner_item,items);
+                    adapterItems.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    foodSpinner.setAdapter(adapterItems);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -173,7 +238,7 @@ public class AddMenuActivity extends AppCompatActivity {
     private void UpdateSetting() {
 
         String setFoodName = foodName.getText().toString();
-        String setFoodCost = foodCost.getText().toString() + " .-";
+        String setFoodCost = foodCost.getText().toString();
 
         if (TextUtils.isEmpty(setFoodName)){
             Toast.makeText(this, "Please enter your user name", Toast.LENGTH_SHORT).show();

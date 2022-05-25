@@ -13,6 +13,15 @@
     </item>
 
     <item
+        android:title="Table"
+        android:id="@+id/main_checkOut_option"
+        app:showAsAction="never"
+        android:visible="false"
+        >
+
+    </item>
+
+    <item
         android:title="Profile"
         android:id="@+id/main_settings_option"
         app:showAsAction="never"

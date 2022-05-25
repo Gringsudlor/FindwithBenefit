@@ -46,25 +46,21 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CheckInActivity extends AppCompatActivity {
-    private Button CheckIn;
+public class CheckedActivity extends AppCompatActivity {
+    private Button CheckOut;
     private TextView tableName;
 
     private DatabaseReference RootRef, UsersRef, currentUserNameRef, tableRef;
 
-    private Toolbar CheckInToolbar;
+    private Toolbar CheckedToolbar;
 
     private FirebaseAuth mAuth;
     private String currentUserID, currentUserName;
 
-    private List<String> items;
-
-    private ArrayAdapter<String> adapterItems;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_in);
+        setContentView(R.layout.activity_checked);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -72,43 +68,6 @@ public class CheckInActivity extends AppCompatActivity {
         UsersRef = RootRef.child("Users");
         tableRef = RootRef.child("Booking");
         currentUserNameRef = UsersRef.child(currentUserID);
-
-        Spinner tableSpinner = (Spinner) findViewById(R.id.table_list_dropdown);
-        items = new ArrayList<>();
-
-        tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = tableSpinner.getSelectedItem().toString();
-                tableName.setText(item);
-                Toast.makeText(CheckInActivity.this, item, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-        tableRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
-                    String key = ds.getKey();
-                    items.add(key);
-                    adapterItems = new ArrayAdapter<String>(CheckInActivity.this,android.R.layout.simple_spinner_item,items);
-                    adapterItems.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    tableSpinner.setAdapter(adapterItems);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
 
         currentUserNameRef.addValueEventListener(new ValueEventListener() {
@@ -125,13 +84,28 @@ public class CheckInActivity extends AppCompatActivity {
             }
         });
 
+        UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String table = snapshot.child("Table").getValue().toString();
+                    tableName.setText(table);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         InitializeFields();
 
         tableName.setVisibility(View.VISIBLE);
 
-        CheckIn.setOnClickListener(new View.OnClickListener() {
+        CheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UpdateSetting();
@@ -147,13 +121,13 @@ public class CheckInActivity extends AppCompatActivity {
 
 
     private void InitializeFields() {
-        CheckIn = (Button) findViewById(R.id.check_in_button);
-        tableName = (TextView) findViewById(R.id.table_name);
-        CheckInToolbar = (Toolbar) findViewById(R.id.check_in_toolbar);
-        setSupportActionBar(CheckInToolbar);
+        CheckOut = (Button) findViewById(R.id.check_out_button);
+        tableName = (TextView) findViewById(R.id.checked_table_name);
+        CheckedToolbar = (Toolbar) findViewById(R.id.checked_toolbar);
+        setSupportActionBar(CheckedToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setTitle("Check In");
+        getSupportActionBar().setTitle("Table");
     }
 
     @Override
@@ -165,14 +139,45 @@ public class CheckInActivity extends AppCompatActivity {
 
 
     private void UpdateSetting() {
-        String setTableName = tableName.getText().toString();
+        HashMap<String, Object> profileMap = new HashMap<>();
+        profileMap.put("Table", "");
+        UsersRef.child(currentUserID).child("Table").updateChildren(profileMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            SendUserToMainActivity();
+                            //Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            String message = task.getException().toString();
+                            Toast.makeText(CheckedActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        /*String setTableName = tableName.getText().toString();
         if (TextUtils.isEmpty(setTableName)){
-            Toast.makeText(this, "Please select your table name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
         }
         else {
 
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("Table", setTableName);
+
+            UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        snapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             UsersRef.child(currentUserID).child("Table").updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -183,17 +188,16 @@ public class CheckInActivity extends AppCompatActivity {
                             }
                             else{
                                 String message = task.getException().toString();
-                                Toast.makeText(CheckInActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CheckedActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-        }
+        }*/
 
     }
 
-
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(CheckInActivity.this, MainActivity.class);
+        Intent mainIntent = new Intent(CheckedActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

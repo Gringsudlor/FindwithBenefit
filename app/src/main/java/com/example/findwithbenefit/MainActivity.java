@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu option;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef, UserRef;
     private String currentUserID;
 
     private int[]tabIcons={
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         RootRef = FirebaseDatabase.getInstance().getReference();
+        UserRef = RootRef.child("Users");
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     private void VerifyUserExistance() {
         String currentUserID = mAuth.getCurrentUser().getUid();
 
-        RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+        UserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if((snapshot.child("name").exists())){
@@ -183,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_checkIn_option){
             SendUserToCheckInActivity();
         }
+        if (item.getItemId() == R.id.main_checkOut_option){
+            SendUserToCheckedActivity();
+        }
         if (item.getItemId() == R.id.main_add_menu_option){
             SendUserToAddMenuActivity();
         }
@@ -193,12 +197,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         MenuItem checkIn = menu.findItem(R.id.main_checkIn_option);
+        MenuItem checkOut = menu.findItem(R.id.main_checkOut_option);
         MenuItem food = menu.findItem(R.id.main_add_menu_option);
         MenuItem table = menu.findItem(R.id.main_add_table_option);
+
+        UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("Table").getValue().toString() != ""){
+                    checkIn.setVisible(false);
+                    checkOut.setVisible(true);
+                }
+                else {
+                    checkIn.setVisible(true);
+                    checkOut.setVisible(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
         {
             food.setVisible(false);
@@ -212,6 +236,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private void SendUserToCheckedActivity() {
+        Intent checkedIntent = new Intent(MainActivity.this, CheckedActivity.class);
+        startActivity(checkedIntent);
+    }
+
     private void SendUserToCheckInActivity() {
         Intent checkInIntent = new Intent(MainActivity.this, CheckInActivity.class);
         startActivity(checkInIntent);

@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CheckedActivity"
+            android:exported="false"
+            android:label="@string/title_activity_checked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".OrderActivity"
             android:exported="false" />
         <activity

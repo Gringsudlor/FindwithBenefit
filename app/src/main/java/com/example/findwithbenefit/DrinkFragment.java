@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,7 +85,7 @@ public class DrinkFragment extends Fragment{
                                 holder.foodName.setText(Name);
                                 holder.foodCost.setText(Cost);
                                 //holder.foodImage.setImageResource(Image);
-                                Picasso.get().load(Image).placeholder(R.mipmap.ic_launcher).into(holder.foodImage);
+                                Picasso.get().load(Image).placeholder(R.drawable.foodicon).into(holder.foodImage);
 
                             }
                             else {
@@ -102,6 +103,17 @@ public class DrinkFragment extends Fragment{
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
+
+                holder.foodLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String visit_food = getRef(position).getKey();
+
+                        Intent intent = new Intent(getActivity(), FoodsActivity.class);
+                        intent.putExtra("visit_food", visit_food);
+                        startActivity(intent);
                     }
                 });
 
@@ -125,6 +137,7 @@ public class DrinkFragment extends Fragment{
 
         TextView foodName, foodCost;
         ImageView foodImage;
+        ConstraintLayout foodLayout;
 
         public FoodsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,6 +145,7 @@ public class DrinkFragment extends Fragment{
             foodName = itemView.findViewById(R.id.myText1);
             foodCost = itemView.findViewById(R.id.myText2);
             foodImage = itemView.findViewById(R.id.myImageView);
+            foodLayout = itemView.findViewById(R.id.foodLayout);
         }
     }
 

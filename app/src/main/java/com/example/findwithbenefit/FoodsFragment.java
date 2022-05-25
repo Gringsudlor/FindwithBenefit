@@ -122,7 +122,6 @@ public class FoodsFragment extends Fragment {
 
         TextView foodName, foodCost;
         CircleImageView foodImage;
-        //ImageView onlineIcon;
 
         public FoodsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -130,7 +129,6 @@ public class FoodsFragment extends Fragment {
             foodName = itemView.findViewById(R.id.user_profile_name);
             foodCost = itemView.findViewById(R.id.user_status);
             foodImage = itemView.findViewById(R.id.users_profile_image);
-            //onlineIcon = (ImageView) itemView.findViewById(R.id.user_online_status);
         }
     }
 

@@ -204,35 +204,35 @@ public class MainActivity extends AppCompatActivity {
         MenuItem food = menu.findItem(R.id.main_add_menu_option);
         MenuItem table = menu.findItem(R.id.main_add_table_option);
 
-        UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("Table").getValue().toString() != ""){
-                    checkIn.setVisible(false);
-                    checkOut.setVisible(true);
-                }
-                else {
-                    checkIn.setVisible(true);
-                    checkOut.setVisible(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
         {
             food.setVisible(false);
             table.setVisible(false);
+            UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child("Table").getValue() != "Checking out"){
+                        checkIn.setVisible(false);
+                        checkOut.setVisible(true);
+                    }
+                    else {
+                        checkIn.setVisible(true);
+                        checkOut.setVisible(false);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
         else
         {
             food.setVisible(true);
             table.setVisible(true);
             checkIn.setVisible(false);
+            checkOut.setVisible(false);
         }
         return true;
     }

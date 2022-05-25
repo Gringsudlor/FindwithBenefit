@@ -140,7 +140,7 @@ public class CheckedActivity extends AppCompatActivity {
 
     private void UpdateSetting() {
         HashMap<String, Object> profileMap = new HashMap<>();
-        profileMap.put("Table", "");
+        profileMap.put("Table", "Checking out");
         UsersRef.child(currentUserID).child("Table").updateChildren(profileMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

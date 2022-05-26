@@ -50,7 +50,7 @@ public class FoodsActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private String currentUserID, currentUserName, receivedFood, Current_State;
+    private String currentUserID, currentUserName, receivedFood, Current_State, currentUserTable;
     private String adminID = "je896l1wU6TuNpCjlvazAx653B82";
 
     @Override
@@ -76,6 +76,7 @@ public class FoodsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild("name")){
                     currentUserName = snapshot.child("name").getValue().toString();
+                    currentUserTable = snapshot.child("Table").child("Table").getValue().toString();
                 }
             }
 
@@ -150,7 +151,7 @@ public class FoodsActivity extends AppCompatActivity {
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
                                                 SendMessage();
-                                                quantity.setText(-1);
+                                                quantity.setText(0);
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
 
 
@@ -183,8 +184,9 @@ public class FoodsActivity extends AppCompatActivity {
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
                                                 SendMessage();
-                                                Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
                                                 quantity.setText(0);
+                                                Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
+
 
 
                                             }
@@ -230,7 +232,8 @@ public class FoodsActivity extends AppCompatActivity {
 
         String item = foodName.getText().toString();
         String q = quantity.getText().toString();
-        String messageText = item + "  x" + q;
+
+        String messageText = currentUserTable + ": " + item + "  x" + q;
 
         if (TextUtils.isEmpty(messageText)){
             Toast.makeText(this, "write something first...", Toast.LENGTH_SHORT).show();

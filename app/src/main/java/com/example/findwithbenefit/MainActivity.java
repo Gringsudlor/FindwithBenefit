@@ -214,20 +214,37 @@ public class MainActivity extends AppCompatActivity {
         MenuItem findFriends = menu.findItem(R.id.main_find_friends_option);
         MenuItem clearOrder = menu.findItem(R.id.main_clear_option);
 
-        if(!currentUserID.equals(adminID))
-        {
+        if(!currentUserID.equals(adminID)) {
             clearOrder.setVisible(false);
             food.setVisible(false);
             table.setVisible(false);
+            //orderHist.setVisible(false);
 
             UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        if (snapshot.child("Table").getValue() != "Checking out"){
+                        String userTable = snapshot.child("Table").getValue().toString();
+                        if (userTable != "Checking out"){
                             checkIn.setVisible(false);
                             checkOut.setVisible(true);
-                            orderHist.setVisible(true);
+                            RootRef.child("Order").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.hasChild(userTable)){
+                                        orderHist.setVisible(true);
+                                    }
+                                    else {
+                                        orderHist.setVisible(false);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                         }
                         else {
                             checkIn.setVisible(true);
@@ -248,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+
         }
         else
         {

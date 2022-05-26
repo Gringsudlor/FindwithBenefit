@@ -62,9 +62,6 @@ public class AddTableActivity extends AppCompatActivity {
 
     private List<String> items;
 
-
-
-    //String[] items =  {"Material","Design","Components","Android","5.0 Lollipop"};
     private ArrayAdapter<String> adapterItems;
 
     @Override
@@ -82,16 +79,6 @@ public class AddTableActivity extends AppCompatActivity {
         Spinner tableSpinner = (Spinner) findViewById(R.id.table_dropdown);
         items = new ArrayList<>();
 
-        //items.add(tableRef);
-        //items.add("Rice");
-        //items.add("Beans");
-        //items.add("Meat");
-
-        //autoCompleteTxt = findViewById(R.id.table_auto_txt);
-
-
-
-        //mySpinner.setSelection(getIndex(mySpinner, ));
         tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

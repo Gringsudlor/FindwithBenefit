@@ -114,8 +114,8 @@ public class FoodsActivity extends AppCompatActivity {
             UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String tableNo = snapshot.child("Table").getValue().toString();
                     if (snapshot.exists()) {
-                        String tableNo = snapshot.child("Table").getValue().toString();
                         OrderRef.child(tableNo).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -152,7 +152,6 @@ public class FoodsActivity extends AppCompatActivity {
                                                 SendMessage();
                                                 quantity.setText(-1);
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
-                                                SendUserToMainActivity();
 
 
                                             }
@@ -185,7 +184,6 @@ public class FoodsActivity extends AppCompatActivity {
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
                                                 SendMessage();
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
-                                                SendUserToMainActivity();
                                                 quantity.setText(0);
 
 
@@ -208,6 +206,12 @@ public class FoodsActivity extends AppCompatActivity {
 
 
                     }
+                    OrderRef.child(tableNo).updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            SendUserToMainActivity();
+                        }
+                    });
                 }
 
                 @Override

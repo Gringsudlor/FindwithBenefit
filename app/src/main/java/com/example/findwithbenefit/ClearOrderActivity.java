@@ -169,7 +169,7 @@ public class ClearOrderActivity extends AppCompatActivity {
 
                 }
             });
-            OrderRef.child(setTableName).child(setTableName).updateChildren(profileMap)
+            OrderRef.updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -216,16 +216,19 @@ public class MainActivity extends AppCompatActivity {
             UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.child("Table").getValue() != "Checking out"){
-                        checkIn.setVisible(false);
-                        checkOut.setVisible(true);
-                        orderHist.setVisible(true);
+                    if (snapshot.exists()){
+                        if (snapshot.child("Table").getValue() != "Checking out"){
+                            checkIn.setVisible(true);
+                            checkOut.setVisible(false);
+                            orderHist.setVisible(true);
+                        }
+                        else {
+                            checkIn.setVisible(false);
+                            checkOut.setVisible(true);
+                            orderHist.setVisible(false);
+                        }
                     }
-                    else {
-                        checkIn.setVisible(true);
-                        checkOut.setVisible(false);
-                        orderHist.setVisible(false);
-                    }
+
                 }
 
                 @Override

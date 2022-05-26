@@ -197,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_order_history_option){
             SendUserToOrderHistoryActivity();
         }
+        if (item.getItemId() == R.id.main_clear_option){
+            SendUserToClearOrderActivity();
+        }
         return true;
     }
 
@@ -208,11 +211,15 @@ public class MainActivity extends AppCompatActivity {
         MenuItem food = menu.findItem(R.id.main_add_menu_option);
         MenuItem table = menu.findItem(R.id.main_add_table_option);
         MenuItem orderHist = menu.findItem(R.id.main_order_history_option);
+        MenuItem findFriends = menu.findItem(R.id.main_find_friends_option);
+        MenuItem clearOrder = menu.findItem(R.id.main_clear_option);
 
         if(!currentUserID.equals(adminID))
         {
+            clearOrder.setVisible(false);
             food.setVisible(false);
             table.setVisible(false);
+
             UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -244,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
+            clearOrder.setVisible(true);
             food.setVisible(true);
             table.setVisible(true);
             checkIn.setVisible(false);
@@ -251,6 +259,11 @@ public class MainActivity extends AppCompatActivity {
             orderHist.setVisible(false);
         }
         return true;
+    }
+
+    private void SendUserToClearOrderActivity() {
+        Intent clearOrderIntent = new Intent(MainActivity.this, ClearOrderActivity.class);
+        startActivity(clearOrderIntent);
     }
 
     private void SendUserToOrderHistoryActivity() {

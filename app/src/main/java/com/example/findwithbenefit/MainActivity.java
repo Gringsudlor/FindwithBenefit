@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef, UserRef;
     private String currentUserID;
+    private String adminID = "je896l1wU6TuNpCjlvazAx653B82";
 
     private int[]tabIcons={
             R.drawable.ic_action_name2,
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem table = menu.findItem(R.id.main_add_table_option);
         MenuItem orderHist = menu.findItem(R.id.main_order_history_option);
 
-        if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
+        if(!currentUserID.equals(adminID))
         {
             food.setVisible(false);
             table.setVisible(false);

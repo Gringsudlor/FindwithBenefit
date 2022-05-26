@@ -24,7 +24,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button CreateAccountButton;
-    private EditText UserEmail, UserPassword;
+    private EditText UserEmail, UserPassword, ConfirmPassword;
     private TextView AlreadyHaveAccountLink;
 
     private FirebaseAuth mAuth;
@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void CreateNewAccount() {
         String email = UserEmail.getText().toString();
         String password = UserPassword.getText().toString();
+        String cPassword = ConfirmPassword.getText().toString();
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please enter Email...", Toast.LENGTH_SHORT).show();
@@ -68,6 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please enter Password...", Toast.LENGTH_SHORT).show();
+        }
+        if(TextUtils.isEmpty(cPassword)){
+            Toast.makeText(this, "Please enter Confirm Password...", Toast.LENGTH_SHORT).show();
+        }
+        if(!password.equals(cPassword)){
+            Toast.makeText(this, "Confirm Password not match", Toast.LENGTH_SHORT).show();
         }
 
         else{
@@ -112,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
         CreateAccountButton = (Button) findViewById(R.id.register_button);
         UserEmail = (EditText) findViewById(R.id.register_email);
         UserPassword = (EditText) findViewById(R.id.register_password);
+        ConfirmPassword = (EditText) findViewById(R.id.confirmation_password);
         AlreadyHaveAccountLink = (TextView) findViewById(R.id.already_have_account_link);
 
         loadingBar = new ProgressDialog(this);

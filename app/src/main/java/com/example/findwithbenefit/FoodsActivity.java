@@ -36,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +51,7 @@ public class FoodsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private String currentUserID, currentUserName, receivedFood, Current_State;
+    private String adminID = "je896l1wU6TuNpCjlvazAx653B82";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class FoodsActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
+
         RootRef = FirebaseDatabase.getInstance().getReference();
         UsersRef = RootRef.child("Users");
         TableRef = RootRef.child("Booking");
@@ -146,9 +149,11 @@ public class FoodsActivity extends AppCompatActivity {
 
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                SendMessage();
                                                 quantity.setText(-1);
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
                                                 SendUserToMainActivity();
+
 
                                             }
 
@@ -178,11 +183,10 @@ public class FoodsActivity extends AppCompatActivity {
 
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                SendMessage();
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
                                                 SendUserToMainActivity();
                                                 quantity.setText(0);
-
-
 
 
                                             }
@@ -215,6 +219,47 @@ public class FoodsActivity extends AppCompatActivity {
 
 
 
+        }
+    }
+
+    private void SendMessage(){
+
+        String item = foodName.getText().toString();
+        String q = quantity.getText().toString();
+        String messageText = item + "  x" + q;
+
+        if (TextUtils.isEmpty(messageText)){
+            Toast.makeText(this, "write something first...", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String messageSenderRef = "Message/" + currentUserID + "/" + adminID;
+            String messageReceiverRef = "Message/" + adminID + "/" + currentUserID;
+
+            DatabaseReference userMessageKeyRef = RootRef.child("Messages")
+                    .child(currentUserID).child(adminID).push();
+
+            String messagePushID = userMessageKeyRef.getKey();
+
+            Map messageTextBody = new HashMap();
+            messageTextBody.put("message", messageText);
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", currentUserID);
+
+            Map messageBodyDetails = new HashMap();
+            messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
+
+            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()){
+                        //Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(FoodsActivity.this, "ERROR: ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -254,10 +299,6 @@ public class FoodsActivity extends AppCompatActivity {
         foodCost = (TextView) findViewById(R.id.food_cost_text);
         quantity = (EditText) findViewById(R.id.quantity);
         foodImg = (ImageView) findViewById(R.id.foodImage);
-        //tableStatus = (EditText) findViewById(R.id.set_table_status);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayShowCustomEnabled(true);
-        //getSupportActionBar().setTitle("Add Table");
     }
 
     @Override
@@ -265,80 +306,6 @@ public class FoodsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
-    /*private void ManageTableBooking() {
-        TableRef.child(receivedFood).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String setTableName = snapshot.child("name").getValue().toString();
-                String setTableStatus = snapshot.child("status").getValue().toString();
-
-                if(!setTableStatus.equals("Available")){
-                    Current_State = "booked";
-                    bookTable.setText("Booked");
-                    Toast.makeText(BookingActivity.this, "Booked", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        bookTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Current_State.equals("new")) {
-                    UpdateSetting();
-                    Toast.makeText(BookingActivity.this, "Reserved Successfully", Toast.LENGTH_SHORT).show();
-                }
-                if (Current_State.equals("booked")) {
-                    Toast.makeText(BookingActivity.this, "Booked", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-
-
-    }
-
-
-    private void UpdateSetting() {
-        String setTableName = tableName.getText().toString();
-        String setTableStatus = "Reserved by " + currentUserName;
-
-        if (TextUtils.isEmpty(setTableName)){
-            //Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(setTableStatus)){
-            //Toast.makeText(this, "Please enter your status", Toast.LENGTH_SHORT).show();
-        }
-        else {
-
-            HashMap<String, Object> profileMap = new HashMap<>();
-            profileMap.put("name", setTableName);
-            profileMap.put("status", setTableStatus);
-            RootRef.child("Booking").child(setTableName).updateChildren(profileMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                SendUserToMainActivity();
-                                //Toast.makeText(BookingActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
-
-                            }
-                            else{
-                                String message = task.getException().toString();
-                                //Toast.makeText(BookingActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
-
-    }
-    */
 
 
     private void SendUserToMainActivity() {

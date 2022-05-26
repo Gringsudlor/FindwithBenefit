@@ -7,13 +7,17 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - AddFoodToolbar : Toolbar
           - DeleteFood : Button
           - FoodImageRef : StorageReference
+          - FoodRef : DatabaseReference
           {static} - GalleryPick : int
           - RootRef : DatabaseReference
           - UpdateFood : Button
+          - adapterItems : ArrayAdapter<String>
+          - cost : String
           - currentUserID : String
           - foodCost : EditText
           - foodImage : ImageView
           - foodName : EditText
+          - items : List<String>
           - loadingBar : ProgressDialog
           - mAuth : FirebaseAuth
           - photoUrl : String
@@ -28,7 +32,6 @@ title __FINDWITHBENEFIT's Class Diagram__\n
     }
   
 
-
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.AddTableActivity {
           - AddTable : Button
@@ -36,13 +39,16 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - DelTable : Button
           - RootRef : DatabaseReference
           - UsersRef : DatabaseReference
+          - adapterItems : ArrayAdapter<String>
           - currentUserID : String
           - currentUserName : String
           - currentUserNameRef : DatabaseReference
+          - items : List<String>
           - mAuth : FirebaseAuth
           - radioButton : RadioButton
           - radioGroup : RadioGroup
           - tableName : EditText
+          - tableRef : DatabaseReference
           + checkButton()
           # onActivityResult()
           # onCreate()
@@ -51,10 +57,10 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - RetrieveUserInfo()
           - SendUserToMainActivity()
           - UpdateSetting()
+          - getData()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.Booking {
@@ -68,8 +74,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + setStatus()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.BookingActivity {
@@ -93,7 +98,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - UpdateSetting()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.BookingFragment {
@@ -104,8 +109,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + onStart()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.BookingFragment.BookingViewHolder {
@@ -115,7 +119,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + BookingViewHolder()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ChatActivity {
@@ -144,7 +148,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - SendMessage()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ChatsFragment {
@@ -159,7 +163,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + onStart()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ChatsFragment.ChatsViewHolder {
@@ -174,10 +178,48 @@ title __FINDWITHBENEFIT's Class Diagram__\n
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.CheckInActivity {
+          - CheckIn : Button
+          - CheckInToolbar : Toolbar
+          - RootRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - adapterItems : ArrayAdapter<String>
+          - currentUserID : String
+          - currentUserName : String
+          - currentUserNameRef : DatabaseReference
+          - items : List<String>
+          - mAuth : FirebaseAuth
+          - tableName : TextView
+          - tableRef : DatabaseReference
+          # onActivityResult()
           # onCreate()
+          - InitializeFields()
+          - SendUserToMainActivity()
+          - UpdateSetting()
       }
     }
 
+
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.CheckedActivity {
+          - CheckOut : Button
+          - CheckedToolbar : Toolbar
+          - RootRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - currentUserName : String
+          - currentUserNameRef : DatabaseReference
+          - mAuth : FirebaseAuth
+          - tableName : TextView
+          - tableRef : DatabaseReference
+          # onActivityResult()
+          # onCreate()
+          - InitializeFields()
+          - SendUserToMainActivity()
+          - UpdateSetting()
+      }
+    }
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.Contacts {
@@ -194,7 +236,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + setStatus()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ContactsFragment {
@@ -209,7 +251,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + onStart()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ContactsFragment.ContactsViewHolder {
@@ -221,28 +263,30 @@ title __FINDWITHBENEFIT's Class Diagram__\n
       }
     }
 
-
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.DrinkFragment {
           - DrinksView : View
           - FoodsRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
           - recyclerView : RecyclerView
           + onCreateView()
           + onStart()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.DrinkFragment.FoodsViewHolder {
           ~ foodCost : TextView
           ~ foodImage : ImageView
+          ~ foodLayout : ConstraintLayout
           ~ foodName : TextView
           + FoodsViewHolder()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.FindFriendsActivity {
@@ -253,6 +297,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           # onStart()
       }
     }
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder {
@@ -262,7 +307,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + FindFriendViewHolder()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.Foods {
@@ -279,6 +324,37 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + setName()
       }
     }
+  
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.FoodsActivity {
+          - Current_State : String
+          - FoodRef : DatabaseReference
+          - OrderRef : DatabaseReference
+          - RootRef : DatabaseReference
+          - TableRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - adminID : String
+          - currentUserID : String
+          - currentUserName : String
+          - currentUserNameRef : DatabaseReference
+          - foodCost : TextView
+          - foodImg : ImageView
+          - foodName : TextView
+          - mAuth : FirebaseAuth
+          - orderBtn : Button
+          - quantity : EditText
+          - receivedFood : String
+          # onActivityResult()
+          # onCreate()
+          - InitializeFields()
+          - Order()
+          - RetrieveFoodInfo()
+          - SendMessage()
+          - SendUserToMainActivity()
+      }
+    }
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.FoodsFragment {
@@ -293,17 +369,18 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + onStart()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.FoodsFragment.FoodsViewHolder {
           ~ foodCost : TextView
           ~ foodImage : CircleImageView
+          ~ foodLayout : ConstraintLayout
           ~ foodName : TextView
           + FoodsViewHolder()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.LoginActivity {
@@ -323,12 +400,13 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - SendUserToRegisterActivity()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.MainActivity {
           - RootRef : DatabaseReference
+          - UserRef : DatabaseReference
+          - adminID : String
           - currentUserID : String
           - mAuth : FirebaseAuth
           - mToolbar : Toolbar
@@ -345,17 +423,18 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           # onStop()
           - SendUserToAddMenuActivity()
           - SendUserToAddTableActivity()
-          - SendUserToCheckActivity()
+          - SendUserToCheckInActivity()
+          - SendUserToCheckedActivity()
           - SendUserToFindFriendsActivity()
           - SendUserToLoginActivity()
+          - SendUserToOrderHistoryActivity()
           - SendUserToSettingsActivity()
           - VerifyUserExistance()
           - setupTabIcons()
           - updateUserStatus()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.MessageAdapter {
@@ -370,7 +449,6 @@ title __FINDWITHBENEFIT's Class Diagram__\n
     }
 
 
-
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.MessageAdapter.MessageViewHolder {
           + receiverMessageText : TextView
@@ -379,8 +457,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + MessageViewHolder()
       }
     }
-
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.Messages {
@@ -397,7 +474,33 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           - Messages()
       }
     }
+  
 
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.OrderHistoryActivity {
+          - FoodsRef : DatabaseReference
+          - OrderHistList : RecyclerView
+          - OrderRef : DatabaseReference
+          - RootRef : DatabaseReference
+          - UsersRef : DatabaseReference
+          - currentUserID : String
+          - mAuth : FirebaseAuth
+          - mToolbar : Toolbar
+          # onCreate()
+          # onStart()
+      }
+    }
+  
+
+    namespace com.example.findwithbenefit {
+      class com.example.findwithbenefit.OrderHistoryActivity.OrderHistViewHolder {
+          ~ foodCost : TextView
+          ~ foodImage : ImageView
+          ~ foodName : TextView
+          ~ foodQuantity : TextView
+          + OrderHistViewHolder()
+      }
+    }
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.ProfileActivity {
@@ -428,6 +531,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.RegisterActivity {
           - AlreadyHaveAccountLink : TextView
+          - ConfirmPassword : EditText
           - CreateAccountButton : Button
           - RootRef : DatabaseReference
           - UserEmail : EditText
@@ -459,7 +563,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + onStart()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.RequestsFragment.RequestsViewHolder {
@@ -471,7 +575,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + RequestsViewHolder()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.SettingActivity {
@@ -496,6 +600,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
       }
     }
 
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.SplashActivity {
@@ -503,13 +608,14 @@ title __FINDWITHBENEFIT's Class Diagram__\n
       }
     }
 
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.TableActivity {
           # onCreate()
       }
     }
-
+  
 
     namespace com.example.findwithbenefit {
       class com.example.findwithbenefit.TabsAccessorAdapter {
@@ -519,7 +625,6 @@ title __FINDWITHBENEFIT's Class Diagram__\n
           + getPageTitle()
       }
     }
-
 
     namespace com.example.proj2 {
       class com.example.proj2.splashTime {
@@ -540,6 +645,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
   com.example.findwithbenefit.ChatsFragment +-down- com.example.findwithbenefit.ChatsFragment.ChatsViewHolder
   com.example.findwithbenefit.ChatsFragment.ChatsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
   com.example.findwithbenefit.CheckInActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.CheckedActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.ContactsFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.ContactsFragment +-down- com.example.findwithbenefit.ContactsFragment.ContactsViewHolder
   com.example.findwithbenefit.ContactsFragment.ContactsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -549,6 +655,7 @@ title __FINDWITHBENEFIT's Class Diagram__\n
   com.example.findwithbenefit.FindFriendsActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.FindFriendsActivity +-down- com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder
   com.example.findwithbenefit.FindFriendsActivity.FindFriendViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.FoodsActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.FoodsFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.FoodsFragment +-down- com.example.findwithbenefit.FoodsFragment.FoodsViewHolder
   com.example.findwithbenefit.FoodsFragment.FoodsViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -558,6 +665,9 @@ title __FINDWITHBENEFIT's Class Diagram__\n
   com.example.findwithbenefit.MessageAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
   com.example.findwithbenefit.MessageAdapter +-down- com.example.findwithbenefit.MessageAdapter.MessageViewHolder
   com.example.findwithbenefit.MessageAdapter.MessageViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.findwithbenefit.OrderHistoryActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.OrderHistoryActivity +-down- com.example.findwithbenefit.OrderHistoryActivity.OrderHistViewHolder
+  com.example.findwithbenefit.OrderHistoryActivity.OrderHistViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
   com.example.findwithbenefit.ProfileActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.RequestsFragment -up-|> androidx.fragment.app.Fragment

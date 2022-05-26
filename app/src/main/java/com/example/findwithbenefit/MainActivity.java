@@ -218,15 +218,20 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         if (snapshot.child("Table").getValue() != "Checking out"){
-                            checkIn.setVisible(true);
-                            checkOut.setVisible(false);
+                            checkIn.setVisible(false);
+                            checkOut.setVisible(true);
                             orderHist.setVisible(true);
                         }
                         else {
-                            checkIn.setVisible(false);
-                            checkOut.setVisible(true);
+                            checkIn.setVisible(true);
+                            checkOut.setVisible(false);
                             orderHist.setVisible(false);
                         }
+                    }
+                    else{
+                        checkIn.setVisible(true);
+                        checkOut.setVisible(false);
+                        orderHist.setVisible(false);
                     }
 
                 }

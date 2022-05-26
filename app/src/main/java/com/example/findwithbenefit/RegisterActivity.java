@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
                                 String adminID = "je896l1wU6TuNpCjlvazAx653B82";
                                 RootRef.child("Users").child(currentUserID).setValue("");
-                                RootRef.child("Users").child(currentUserID).child("Table").child("Table").setValue("Checking out");
+                                //RootRef.child("Users").child(currentUserID).child("Table").child("Table").setValue("Checking out");
                                 RootRef.child("Contacts").child(currentUserID).child(adminID).child("Contact").setValue("Saved");
                                 RootRef.child("Contacts").child(adminID).child(currentUserID).child("Contact").setValue("Saved");
                                 SendUserToMainActivity();

@@ -130,7 +130,7 @@ public class BookingFragment extends Fragment{
             tableName = itemView.findViewById(R.id.myText1);
             tableStatus = itemView.findViewById(R.id.myText2);
             tableLayout = itemView.findViewById(R.id.tableLayout);
-            //foodImage = itemView.findViewById(R.id.myImageView);
+            //foodImage = itemView.findViewFId(R.id.myImageView);
         }
     }
 

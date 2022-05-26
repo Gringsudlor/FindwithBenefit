@@ -76,6 +76,14 @@ title __FINDWITHBENEFIT.APP's Class Diagram__\n
 
   namespace  {
     namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.CheckedActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
       class com.example.findwithbenefit.Contacts {
       }
     }
@@ -116,6 +124,14 @@ title __FINDWITHBENEFIT.APP's Class Diagram__\n
 
   namespace  {
     namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.FoodsActivity {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
       class com.example.findwithbenefit.FoodsFragment {
       }
     }
@@ -149,6 +165,14 @@ title __FINDWITHBENEFIT.APP's Class Diagram__\n
   namespace  {
     namespace om.example.findwithbenefit {
       class com.example.findwithbenefit.Messages {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.findwithbenefit {
+      class com.example.findwithbenefit.OrderHistoryActivity {
       }
     }
   }
@@ -226,14 +250,17 @@ title __FINDWITHBENEFIT.APP's Class Diagram__\n
   com.example.findwithbenefit.ChatActivity o-- com.example.findwithbenefit.MessageAdapter : messageAdapter
   com.example.findwithbenefit.ChatsFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.CheckInActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.CheckedActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.ContactsFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.DrinkFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.FindFriendsActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.findwithbenefit.FoodsActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.FoodsFragment -up-|> androidx.fragment.app.Fragment
   com.example.findwithbenefit.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.MainActivity o-- com.example.findwithbenefit.TabsAccessorAdapter : myTabsAccessorAdapter
   com.example.findwithbenefit.MessageAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.findwithbenefit.OrderHistoryActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.ProfileActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.RegisterActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.example.findwithbenefit.RequestsFragment -up-|> androidx.fragment.app.Fragment

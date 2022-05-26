@@ -250,12 +250,14 @@ public class AddTableActivity extends AppCompatActivity {
     private void UpdateSetting() {
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
+        RadioButton av = (RadioButton) findViewById(R.id.available_button);
+        //RadioButton av = (RadioButton) findViewById(R.id.available_button);
         String setTableName = tableName.getText().toString();
         String setTableStatus;
-        if (radioId == 2131361883){
+        if (radioButton == av){
             setTableStatus = radioButton.getText().toString();
         }
-        else{
+        else {
             setTableStatus = radioButton.getText() + " by " + currentUserName;
         }
 
@@ -303,7 +305,7 @@ public class AddTableActivity extends AppCompatActivity {
                         }
                         else {
                             tableName.setVisibility(View.VISIBLE);
-                            Toast.makeText(AddTableActivity.this, "Please set and update table information", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddTableActivity.this, "Please set and update table information", Toast.LENGTH_SHORT).show();
                         }
                     }
 

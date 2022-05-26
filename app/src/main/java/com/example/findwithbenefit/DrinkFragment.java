@@ -119,17 +119,20 @@ public class DrinkFragment extends Fragment{
                         UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String checker = snapshot.child("Table").getValue().toString();
-                                if (checker == "Checking out"){
-                                    Toast.makeText(getActivity(), "Please Check in Table before order foods...", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    String visit_food = getRef(position).getKey();
+                                if (snapshot.exists()){
+                                    String checker = snapshot.child("Table").getValue().toString();
+                                    if (checker == "Checking out"){
+                                        Toast.makeText(getActivity(), "Please Check in Table before order foods...", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        String visit_food = getRef(position).getKey();
 
-                                    Intent intent = new Intent(getActivity(), FoodsActivity.class);
-                                    intent.putExtra("visit_food", visit_food);
-                                    startActivity(intent);
+                                        Intent intent = new Intent(getActivity(), FoodsActivity.class);
+                                        intent.putExtra("visit_food", visit_food);
+                                        startActivity(intent);
+                                    }
                                 }
+
                             }
 
                             @Override

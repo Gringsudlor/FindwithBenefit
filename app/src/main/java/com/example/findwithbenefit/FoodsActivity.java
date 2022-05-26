@@ -45,7 +45,7 @@ public class FoodsActivity extends AppCompatActivity {
     private EditText quantity;
     private ImageView foodImg;
 
-    private DatabaseReference RootRef, UsersRef, currentUserNameRef, TableRef, FoodRef;
+    private DatabaseReference RootRef, UsersRef, currentUserNameRef, TableRef, FoodRef, OrderRef;
 
 
     private FirebaseAuth mAuth;
@@ -62,6 +62,7 @@ public class FoodsActivity extends AppCompatActivity {
         UsersRef = RootRef.child("Users");
         TableRef = RootRef.child("Booking");
         FoodRef = RootRef.child("Foods");
+        OrderRef = RootRef.child("Order");
         currentUserNameRef = UsersRef.child(currentUserID);
         receivedFood = getIntent().getExtras().get("visit_food").toString();
         Current_State = "new";
@@ -89,8 +90,134 @@ public class FoodsActivity extends AppCompatActivity {
 
         RetrieveFoodInfo();
 
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Order();
+            }
+        });
+
 
     }
+
+    private void Order() {
+        String foodName = FoodRef.child(receivedFood).getKey().toString();
+        HashMap<String, Object> orderMap = new HashMap<>();
+
+        if (Integer.parseInt(quantity.getText().toString()) <= 0) {
+            Toast.makeText(this, "Please add quantity", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String tableNo = snapshot.child("Table").getValue().toString();
+                        OrderRef.child(tableNo).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                int total;
+                                int receivedQuantity;
+                                if (snapshot.exists()){
+
+                                    if (snapshot.hasChild(foodName)){
+                                        receivedQuantity = Integer.parseInt(snapshot.child(foodName).getValue().toString());
+                                    }
+                                    else{
+                                        receivedQuantity = 0;
+                                    }
+                                    if (snapshot.hasChild("total")){
+                                        total = Integer.parseInt(snapshot.child("total").getValue().toString());
+                                    }
+                                    else {
+                                        total = 0;
+                                    }
+
+                                    FoodRef.child(foodName).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                int Quantity = Integer.parseInt(quantity.getText().toString());
+                                                int totalQuantity = receivedQuantity + Quantity;
+                                                String quantityStr = Integer.toString(totalQuantity);
+                                                int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
+                                                int totalCost = total + (Integer.parseInt(quantity.getText().toString()) * cost);
+                                                String totalStr = Integer.toString(totalCost);
+
+                                                OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
+                                                OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                quantity.setText(-1);
+                                                Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
+                                                SendUserToMainActivity();
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+
+                                }
+                                else{
+                                    total = 0;
+                                    receivedQuantity = 0;
+                                    FoodRef.child(foodName).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                int Quantity = Integer.parseInt(quantity.getText().toString());
+                                                int totalQuantity = receivedQuantity + Quantity;
+                                                String quantityStr = Integer.toString(totalQuantity);
+                                                int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
+                                                int totalCost = total + (Integer.parseInt(quantity.getText().toString()) * cost);
+                                                String totalStr = Integer.toString(totalCost);
+
+                                                OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
+                                                OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
+                                                SendUserToMainActivity();
+                                                quantity.setText(0);
+
+
+
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+
+        }
+    }
+
 
     private void RetrieveFoodInfo() {
 

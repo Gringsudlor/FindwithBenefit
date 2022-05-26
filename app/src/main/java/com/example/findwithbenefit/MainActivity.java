@@ -193,6 +193,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.main_add_table_option){
             SendUserToAddTableActivity();
         }
+        if (item.getItemId() == R.id.main_order_history_option){
+            SendUserToOrderHistoryActivity();
+        }
         return true;
     }
 
@@ -203,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem checkOut = menu.findItem(R.id.main_checkOut_option);
         MenuItem food = menu.findItem(R.id.main_add_menu_option);
         MenuItem table = menu.findItem(R.id.main_add_table_option);
+        MenuItem orderHist = menu.findItem(R.id.main_order_history_option);
 
         if(!currentUserID.equals("je896l1wU6TuNpCjlvazAx653B82"))
         {
@@ -214,10 +218,12 @@ public class MainActivity extends AppCompatActivity {
                     if (snapshot.child("Table").getValue() != "Checking out"){
                         checkIn.setVisible(false);
                         checkOut.setVisible(true);
+                        orderHist.setVisible(true);
                     }
                     else {
                         checkIn.setVisible(true);
                         checkOut.setVisible(false);
+                        orderHist.setVisible(false);
                     }
                 }
 
@@ -233,8 +239,14 @@ public class MainActivity extends AppCompatActivity {
             table.setVisible(true);
             checkIn.setVisible(false);
             checkOut.setVisible(false);
+            orderHist.setVisible(false);
         }
         return true;
+    }
+
+    private void SendUserToOrderHistoryActivity() {
+        Intent orderHistIntent = new Intent(MainActivity.this, OrderHistoryActivity.class);
+        startActivity(orderHistIntent);
     }
 
     private void SendUserToCheckedActivity() {

@@ -15,7 +15,7 @@
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_main.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_menu.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_order.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_order_history.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_order_history.xml" value="0.22" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_profile.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_register.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/activity_setting.xml" value="0.21354166666666666" />
@@ -36,6 +36,7 @@
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/fragment_profile.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/fragment_requests.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/order_display_layout.xml" value="0.24427083333333333" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/table_display_layout.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/layout/users_display_layout.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/gring/Documents/GitHub/FindwithBenefit/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2640625" />

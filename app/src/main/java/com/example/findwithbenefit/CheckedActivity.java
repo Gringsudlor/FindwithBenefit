@@ -139,9 +139,22 @@ public class CheckedActivity extends AppCompatActivity {
 
 
     private void UpdateSetting() {
-        HashMap<String, Object> profileMap = new HashMap<>();
-        profileMap.put("Table", "Checking out");
-        UsersRef.child(currentUserID).child("Table").updateChildren(profileMap)
+        HashMap<String, Object> tableMap = new HashMap<>();
+        //profileMap.put("Table", "Checking out");
+        UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        UsersRef.child(currentUserID).child("Table").updateChildren(tableMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -155,44 +168,6 @@ public class CheckedActivity extends AppCompatActivity {
                         }
                     }
                 });
-        /*String setTableName = tableName.getText().toString();
-        if (TextUtils.isEmpty(setTableName)){
-            Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
-        }
-        else {
-
-            HashMap<String, Object> profileMap = new HashMap<>();
-            profileMap.put("Table", setTableName);
-
-            UsersRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        snapshot.getRef().removeValue();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            UsersRef.child(currentUserID).child("Table").updateChildren(profileMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                SendUserToMainActivity();
-                                //Toast.makeText(AddTableActivity.this, "Table Updated", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                String message = task.getException().toString();
-                                Toast.makeText(CheckedActivity.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }*/
 
     }
 

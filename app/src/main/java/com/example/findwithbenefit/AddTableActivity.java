@@ -245,7 +245,7 @@ public class AddTableActivity extends AppCompatActivity {
             setTableStatus = radioButton.getText().toString();
         }
         else {
-            setTableStatus = radioButton.getText() + " by " + currentUserName;
+            setTableStatus = radioButton.getText().toString();
         }
 
         if (TextUtils.isEmpty(setTableName)){
@@ -259,6 +259,7 @@ public class AddTableActivity extends AppCompatActivity {
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("name", setTableName);
             profileMap.put("status", setTableStatus);
+            profileMap.put("user", "");
             RootRef.child("Booking").child(setTableName).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

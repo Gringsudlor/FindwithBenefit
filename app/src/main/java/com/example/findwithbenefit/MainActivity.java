@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference RootRef, UserRef;
     private String currentUserID;
     private String adminID = "je896l1wU6TuNpCjlvazAx653B82";
+    private String userTable;
 
     private int[]tabIcons={
             R.drawable.ic_action_name2,
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         myTabLayout.setupWithViewPager(myViewPager);
 
         option = (Menu) findViewById(R.id.myOption);
-
 
 
 
@@ -223,9 +223,9 @@ public class MainActivity extends AppCompatActivity {
             UserRef.child(currentUserID).child("Table").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                     if (snapshot.exists()){
                         String userTable = snapshot.child("Table").getValue().toString();
-                        if (userTable != "Checking out"){
                             checkIn.setVisible(false);
                             checkOut.setVisible(true);
                             RootRef.child("Order").addValueEventListener(new ValueEventListener() {
@@ -245,17 +245,13 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
-                        }
-                        else {
-                            checkIn.setVisible(true);
-                            checkOut.setVisible(false);
-                            orderHist.setVisible(false);
-                        }
+
                     }
                     else{
                         checkIn.setVisible(true);
                         checkOut.setVisible(false);
                         orderHist.setVisible(false);
+                        //Toast.makeText(MainActivity.this, "nooooo", Toast.LENGTH_SHORT).show();
                     }
 
                 }

@@ -1,26 +1,20 @@
 package com.example.findwithbenefit;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,17 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FoodsActivity extends AppCompatActivity {
     private Button orderBtn;
@@ -108,7 +94,7 @@ public class FoodsActivity extends AppCompatActivity {
         String foodName = FoodRef.child(receivedFood).getKey().toString();
         HashMap<String, Object> orderMap = new HashMap<>();
 
-        if (Integer.parseInt(quantity.getText().toString()) <= 0) {
+        if (Integer.parseInt(quantity.getText().toString()) <= 0 || TextUtils.isEmpty(quantity.getText().toString())) {
             Toast.makeText(this, "Please add quantity", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -143,13 +129,15 @@ public class FoodsActivity extends AppCompatActivity {
                                             if (snapshot.exists()) {
                                                 int Quantity = Integer.parseInt(quantity.getText().toString());
                                                 int totalQuantity = receivedQuantity + Quantity;
-                                                String quantityStr = Integer.toString(totalQuantity);
                                                 int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
                                                 int totalCost = total + (Integer.parseInt(quantity.getText().toString()) * cost);
+                                                String quantityStr = Integer.toString(totalQuantity);
                                                 String totalStr = Integer.toString(totalCost);
 
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                orderMap.put(foodName, quantityStr);
+                                                orderMap.put("total", totalStr);
                                                 SendMessage();
                                                 quantity.setText(0);
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
@@ -176,13 +164,15 @@ public class FoodsActivity extends AppCompatActivity {
                                             if (snapshot.exists()) {
                                                 int Quantity = Integer.parseInt(quantity.getText().toString());
                                                 int totalQuantity = receivedQuantity + Quantity;
-                                                String quantityStr = Integer.toString(totalQuantity);
                                                 int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
                                                 int totalCost = total + (Integer.parseInt(quantity.getText().toString()) * cost);
+                                                String quantityStr = Integer.toString(totalQuantity);
                                                 String totalStr = Integer.toString(totalCost);
 
                                                 OrderRef.child(tableNo).child(foodName).setValue(quantityStr);
                                                 OrderRef.child(tableNo).child("total").setValue(totalStr);
+                                                orderMap.put(foodName, quantityStr);
+                                                orderMap.put("total", totalStr);
                                                 SendMessage();
                                                 quantity.setText(0);
                                                 Toast.makeText(FoodsActivity.this, "Order successfully", Toast.LENGTH_SHORT).show();
@@ -211,6 +201,7 @@ public class FoodsActivity extends AppCompatActivity {
                     OrderRef.child(tableNo).updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+
                             SendUserToMainActivity();
                         }
                     });

@@ -79,9 +79,16 @@ public class BookingFragment extends Fragment{
 
                             String Status = snapshot.child("status").getValue().toString();
                             String Name = snapshot.child("name").getValue().toString();
+                            String User = snapshot.child("user").getValue().toString();
 
                             holder.tableName.setText(Name);
                             holder.tableStatus.setText(Status);
+                            holder.userName.setText(User);
+
+                            if(Status == "Available"){
+                                //holder.byText.setVisibility(View.GONE);
+                                holder.userName.setVisibility(View.GONE);
+                            }
 
                         }
                     }
@@ -120,7 +127,7 @@ public class BookingFragment extends Fragment{
 
     public static class BookingViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tableName, tableStatus;
+        TextView tableName, tableStatus, userName, byText;
         ConstraintLayout tableLayout;
         //ImageView foodImage;
 
@@ -129,6 +136,8 @@ public class BookingFragment extends Fragment{
 
             tableName = itemView.findViewById(R.id.myText1);
             tableStatus = itemView.findViewById(R.id.myText2);
+            userName = itemView.findViewById(R.id.user_name_txt);
+            //byText = itemView.findViewById(R.id.by_txt);
             tableLayout = itemView.findViewById(R.id.tableLayout);
             //foodImage = itemView.findViewFId(R.id.myImageView);
         }

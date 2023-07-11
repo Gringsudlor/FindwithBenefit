@@ -171,7 +171,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void UpdateSetting() {
         String setTableName = tableName.getText().toString();
-        String setTableStatus = "Reserved by " + currentUserName;
+        String setTableStatus = "Reserved";
 
         if (TextUtils.isEmpty(setTableName)){
             //Toast.makeText(this, "Please enter your table name", Toast.LENGTH_SHORT).show();
@@ -184,6 +184,7 @@ public class BookingActivity extends AppCompatActivity {
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("name", setTableName);
             profileMap.put("status", setTableStatus);
+            profileMap.put("user", currentUserName);
             RootRef.child("Booking").child(setTableName).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
